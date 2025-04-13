@@ -36,10 +36,11 @@
       - [x] Range validation for each type
       - [x] All base representations
       - [x] Invalid literal detection
-  - [ ] String literals
-    ```nim
-    const s = "hello"
-    ```
+  - [x] String literals
+    - [x] Basic string literals
+    - [x] Raw string literals
+    - [x] Triple-quoted string literals
+    - [x] Tests for each string literal form
   - [ ] Float literals
     ```nim
     const f = 3.14
@@ -70,11 +71,11 @@
   ```nim
   proc simple() = discard
   ```
-- [ ] Procs with basic parameters
+- [x] Procs with basic parameters
   ```nim
   proc withParams(x: int) = discard
   ```
-- [ ] Procs with return types
+- [x] Procs with return types
   ```nim
   proc withReturn(): int = 42
   ```
