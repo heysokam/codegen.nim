@@ -1,9 +1,15 @@
-import "$nim"/compiler/[ ast, parser, idents, options, lineinfos, msgs, pathutils, syntaxes ]
+#:______________________________________________________________________
+#  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
+#:______________________________________________________________________
+# @deps std
 from std/random as rand import nil
 import std/strutils
 import std/strformat
 import std/math
 import std/bitops
+# @deps compiler
+import "$nim"/compiler/[ ast, parser, idents, options, lineinfos, msgs, pathutils, syntaxes ]
+# @deps nim.gen
 import ./shared
 
 

@@ -1,5 +1,10 @@
+#:______________________________________________________________________
+#  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
+#:______________________________________________________________________
+# @deps std
 import unittest, strutils, strformat, sets, parseUtils, math, os
 from std/random as rand import nil
+# @deps nim.gen
 import ../tests/base
 import ./literal
 
