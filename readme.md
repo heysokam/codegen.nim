@@ -2,7 +2,7 @@
 ## Overview
 `codegen.nim` is a library for generating random, but syntactically valid, Nim code.  
 It provides tools to create random code snippets that follow Nim's grammar rules.  
-Useful for testing, fuzzing, and generating random code.  
+Useful for fuzz-testing and stress-testing a nim compiler.  
 
 ## Project Goals
 1. Generate valid Nim code that compiles correctly
