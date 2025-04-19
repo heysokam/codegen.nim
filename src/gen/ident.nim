@@ -35,9 +35,14 @@ func name *(length :Positive= 8, underscore :bool= false) :string=
   result = $R.sample(firstCharSet)
 
   # Remaining characters can be letters, digits, or underscores
-  for i in 1..<max(1, length-1): result.add $R.sample(chars.Identifier)
+  for id in 1..<max(1, length-1): result.add $R.sample(chars.Identifier)
   if length == 1: return
-  result.add $R.sample(firstCharSet + chars.Digits)
+
+  # Last character cannot be an underscore if not allowed
+  let lastCharSet =
+    if underscore : chars.Identifier
+    else          : chars.Letters + chars.Digits
+  result.add $R.sample(lastCharSet )
 
 
 #_______________________________________

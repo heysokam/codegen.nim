@@ -3,7 +3,6 @@
 #:______________________________________________________________________
 # @deps std
 import unittest
-import os
 # @deps nim.gen
 from ./gen import nil
 import ./tests/base

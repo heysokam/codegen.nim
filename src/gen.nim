@@ -2,7 +2,7 @@
 #  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
 #:______________________________________________________________________
 # @deps compiler
-import "$nim"/compiler/[ ast, parser, idents, options, lineinfos, msgs, pathutils, syntaxes ]
+import "$nim"/compiler/[ ast, options, lineinfos, msgs, pathutils ]
 from   "$nim"/compiler/renderer import renderTree, renderNoComments, renderNoPragmas
 
 # Import the modules

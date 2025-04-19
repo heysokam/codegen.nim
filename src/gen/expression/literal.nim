@@ -2,7 +2,7 @@
 #  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
 #:______________________________________________________________________
 # @deps compiler
-import "$nim"/compiler/[ ast, idents, options, lineinfos, msgs, pathutils ]
+import "$nim"/compiler/[ ast ]
 # @deps nim.gen
 import ../../random as R
 

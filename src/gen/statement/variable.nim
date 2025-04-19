@@ -1,8 +1,6 @@
 #:______________________________________________________________________
 #  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
 #:______________________________________________________________________
-# @deps std
-import std/parseutils
 # @deps compiler
 import "$nim"/compiler/[ ast, idents, lineinfos ]
 # @deps nim.gen

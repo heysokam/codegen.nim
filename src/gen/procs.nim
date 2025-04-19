@@ -2,10 +2,9 @@
 #  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
 #:______________________________________________________________________
 # @deps std
-import std/strutils
 import std/sets
 # @deps compiler
-import "$nim"/compiler/[ ast, parser, idents, options, lineinfos, msgs, pathutils, syntaxes ]
+import "$nim"/compiler/[ ast, idents, lineinfos ]
 # @deps nim.gen
 import ../random as R
 import ./ident
