@@ -41,16 +41,11 @@
     - [x] Raw string literals
     - [x] Triple-quoted string literals
     - [x] Tests for each string literal form
-  - [ ] Float literals
-    ```nim
-    const f = 3.14
-    ```
-  - [ ] Basic expressions with literals
-    ```nim
-    const x = 1 + 2
-    ```
-  - [ ] Tests for expressions
-
+  - [x] Float literals
+    - [x] FLOAT_LIT (default float type)
+    - [x] FLOAT32_LIT: `42.0'f32`
+    - [x] FLOAT64_LIT: `42.0'f64`
+    - [x] Tests for each float literal form
 - [ ] Variable Statements
   - [ ] Single identifier declarations
     ```nim
