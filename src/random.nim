@@ -5,15 +5,15 @@ from std/random as R import nil
 from std/hashes import hash
 
 const seed {.strDefine.}= CompileDate & CompileTime
-var state {.compileTime.}= R.initRand(hash(seed))
+var state = R.initRand(hash(seed))
 
 func integer *() :SomeInteger=
   {.cast(noSideEffect).}:
-    return state.rand(int.high)
+    return R.rand(state, int.high)
 
 func integer *[T: SomeInteger](H :T) :T=
   {.cast(noSideEffect).}:
-    return state.rand(H)
+    return R.rand(state, H)
 
 func integer *[T: SomeInteger](S :Slice[T]) :T=
   {.cast(noSideEffect).}:
@@ -25,7 +25,7 @@ func float *[T: SomeFloat](H :T) :T=
 
 func float *[T: SomeFloat](S :Slice[T]) :T=
   {.cast(noSideEffect).}:
-    return state.rand(S)
+    return R.rand(state, S)
 
 func sample *[T](container :T) :auto=
   {.cast(noSideEffect).}:
