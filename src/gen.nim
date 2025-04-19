@@ -6,7 +6,7 @@ import "$nim"/compiler/[ ast, parser, idents, options, lineinfos, msgs, pathutil
 from   "$nim"/compiler/renderer import renderTree, renderNoComments, renderNoPragmas
 
 # Import the modules
-import gen/procs
+import ./gen/procs
 
 proc root *(path :string) :tuple[node: PNode, info: TLineInfo]=
   let config  = newConfigRef()

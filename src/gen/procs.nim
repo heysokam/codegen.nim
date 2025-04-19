@@ -33,10 +33,10 @@ proc random*(info: TLineInfo; public :bool= false): PNode =
     # Ensure unique name
     var nameStr = ""
     while true:
-        nameStr = ident.random(length=initialNameLength)
-        if nameStr notin usedParamNames:
-            usedParamNames.incl(nameStr)
-            break
+      nameStr = ident.name(length=initialNameLength)
+      if nameStr notin usedParamNames:
+        usedParamNames.incl(nameStr)
+        break
 
     let paramIdent = gIdentCache.getIdent(nameStr)
     let paramNameNode = newIdentNode(paramIdent, info)

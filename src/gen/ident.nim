@@ -77,3 +77,4 @@ proc random *(
   result.add(pub_node)  # Child 0: Operator Ident (*)
   result.add(name_node) # Child 1: Base Ident (randomName)
 
+

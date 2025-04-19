@@ -5,7 +5,7 @@
 from std/random as rand import nil
 import std/sequtils
 # @deps nim.gen
-import ./shared
+# import ./shared
 
 
 #_______________________________________
