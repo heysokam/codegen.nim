@@ -5,8 +5,6 @@ import confy
 import std/os
 import std/strutils
 
-Program.new("entry.nim").build.run
-
 
 #_______________________________________
 # @section Run all UnitTest files
@@ -15,3 +13,4 @@ if dirExists("./bin/.tests"): removeDir("./bin/.tests")
 for testFile in os.walkDirRec("./src", yieldFilter= {pcFile}, relative= true):
   if not testFile.endsWith("_test.nim"): continue
   Program.new(testFile, sub="tests").build.run
+

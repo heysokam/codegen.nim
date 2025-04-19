@@ -13,7 +13,7 @@ import ../expression
 #_______________________________________
 # @section Variable Generation
 #_____________________________
-proc runtime (
+func runtime (
     info    : TLineInfo;
     public  : bool     = false;
     mutable : bool     = true;
@@ -29,7 +29,7 @@ proc runtime (
     identDefs.add(expression.random(info)) # Child 2: Value
     result.add(identDefs)
 #___________________
-proc comptime (
+func comptime (
     info   : TLineInfo;
     public : bool     = false;
     count  : Positive = 1;
@@ -47,7 +47,7 @@ proc comptime (
 #_______________________________________
 # @section Variable Generation: Entry Point
 #_____________________________
-proc random *(
+func random *(
     info    : TLineInfo;
     public  : bool = false;
     mutable : bool = true;

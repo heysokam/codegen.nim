@@ -6,7 +6,7 @@ import "$nim"/compiler/[ ast, idents, lineinfos ]
 # @deps nim.gen
 import ./expression/literal
 
-proc random *(info :TLineInfo) :PNode=
+func random *(info :TLineInfo) :PNode=
   # FIX: Choose other random expressions
   return literal.random() # Generate random literal expression
 

@@ -1,0 +1,33 @@
+#:______________________________________________________________________
+#  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
+#:______________________________________________________________________
+from std/random as R import nil
+from std/hashes import hash
+
+const seed {.strDefine.}= CompileDate & CompileTime
+var state {.compileTime.}= R.initRand(hash(seed))
+
+func integer *() :SomeInteger=
+  {.cast(noSideEffect).}:
+    return state.rand(int.high)
+
+func integer *[T: SomeInteger](H :T) :T=
+  {.cast(noSideEffect).}:
+    return state.rand(H)
+
+func integer *[T: SomeInteger](S :Slice[T]) :T=
+  {.cast(noSideEffect).}:
+    return R.rand(state, S)
+
+func float *[T: SomeFloat](H :T) :T=
+  {.cast(noSideEffect).}:
+    return R.rand(state, H)
+
+func float *[T: SomeFloat](S :Slice[T]) :T=
+  {.cast(noSideEffect).}:
+    return state.rand(S)
+
+func sample *[T](container :T) :auto=
+  {.cast(noSideEffect).}:
+    return R.sample(state, container)
+
