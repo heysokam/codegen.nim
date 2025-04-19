@@ -13,19 +13,9 @@ import ./shared
 
 
 # Generate a random procedure node
-proc random*(info: TLineInfo): PNode =
+proc random*(info: TLineInfo; public :bool= false): PNode =
   # 1. Name (Postfix node for export)
-  let procNameStr   = ident.random() # Generate random proc name
-  let procNameIdent = gIdentCache.getIdent(procNameStr)
-  let procNameNode  = newIdentNode(procNameIdent, info)
-
-  let exportOpIdent = gIdentCache.getIdent("*") # Identifier for the export operator
-  let exportOpNode  = newIdentNode(exportOpIdent, info)
-
-  let nameNode = newNodeI(nkPostfix, info) # Create postfix node for name
-  # Match parser order: operator first, then identifier
-  nameNode.add(exportOpNode) # Child 0: Operator Ident (*)
-  nameNode.add(procNameNode) # Child 1: Base Ident (randomName)
+  let nameNode = ident.random(info, public) # Create postfix node for name
 
   # 2. Formal Params
   let randomRetType = rand.sample(basicTypes) # Randomly select a return type from basic types only
