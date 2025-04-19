@@ -3,7 +3,6 @@
 #:______________________________________________________________________
 # @deps std
 from std/random as rand import nil
-import std/sets
 import std/sequtils
 # @deps nim.gen
 import ./shared

@@ -7,8 +7,9 @@ from std/math import nil
 from std/bitops import nil
 import std/strutils
 import std/sequtils
+import std/parseutils
 # @deps compiler
-import "$nim"/compiler/[ ast, parser, idents, options, lineinfos, msgs, pathutils, syntaxes ]
+import "$nim"/compiler/[ ast, idents, options, lineinfos, msgs, pathutils ]
 # @deps nim.gen
 import ./shared
 import ./chars
@@ -184,7 +185,7 @@ const orderedTypes = [
 proc int_fitsInType*(min,max :distinct SomeSignedInt; info: int_Info): bool =
   ## Checks if the given min/max range fits within the bounds of the info.
   if min < 0 and info.minVal >= 0: return false  # Negative values won't fit in unsigned types
-  let realMax = system.min(max.high.uint, info.maxVal).int
+  let realMax = system.min(max.typeof.high.uint, info.maxVal).int
   if min < info.minVal: return false
   if max > realMax: return false
   return true
@@ -343,7 +344,7 @@ proc string *(minLen, maxLen :uint; generalized :bool= true) :string=
   case rand.rand(if generalized: 3 else: 2)
   of 1 : result = string_raw(content)
   of 2 : result = string_triple(content)
-  of 3 : result = string_generalized(content, ident.random(rand.rand(1'u..maxLen), rand.rand(1.0) < 0.5))
+  of 3 : result = string_generalized(content, ident.name(rand.rand(1'u..maxLen), rand.rand(1.0) < 0.5))
   else : result = string_basic(content)
 
 
@@ -353,19 +354,19 @@ proc string *(minLen, maxLen :uint; generalized :bool= true) :string=
 #_____________________________
 ##! FLOAT_LIT = unary_minus? dec_digits (('.' dec_digits [exponent]) | exponent)
 #___________________
-proc float_digits (count :uint= 1; underscore :bool= false) :string= chars.dec_digits(count, underscore)
-  ## Generates a sequence of {@arg count} random float digits with an optional underscore before each
-  ##! float_digits = dec_digits
+# proc float_digits (count :uint= 1; underscore :bool= false) :string= chars.dec_digits(count, underscore)
+#   ## Generates a sequence of {@arg count} random float digits with an optional underscore before each
+#   ##! float_digits = dec_digits
 #___________________
-proc float_exponent (precision :range[1..int.high]= 1; underscore :bool= false) :string=
-  ## Generates the exponent part of a float literal with the given digits of precision
-  ##! exponent = ('e' | 'E' ) ['+' | '-'] dec_digits
-  let isNegative = rand.rand(1.0) < 0.5
-  let hasSign    = rand.rand(1.0) < 0.5
-  let useUpperE  = rand.rand(1.0) < 0.5
-  result.add if useUpperE: 'E' else: 'e'
-  if hasSign: result.add if isNegative: "-" else: "+"
-  result.add float_digits(precision.uint, underscore)
+# proc float_exponent (precision :range[1..int.high]= 1; underscore :bool= false) :string=
+#   ## Generates the exponent part of a float literal with the given digits of precision
+#   ##! exponent = ('e' | 'E' ) ['+' | '-'] dec_digits
+#   let isNegative = rand.rand(1.0) < 0.5
+#   let hasSign    = rand.rand(1.0) < 0.5
+#   let useUpperE  = rand.rand(1.0) < 0.5
+#   result.add if useUpperE: 'E' else: 'e'
+#   if hasSign: result.add if isNegative: "-" else: "+"
+#   result.add float_digits(precision.uint, underscore)
 #___________________
 # proc float_base (
 #     min,max     : float;
@@ -433,15 +434,17 @@ proc float*(min,max :float) :string=
   else : result = float_basic(min, max)
 
 
-
-
 #_______________________________________
 # @section Node Generation: Entry Point
 #_____________________________
-proc integer_node (min,max :distinct SomeInteger) :PNode= newIntNode(nkIntLit, parseInt(literal.integer(min, max)))
+proc node_integer *(min,max :distinct SomeInteger) :PNode=
+  let valueStr = literal.int_any(-1000, 1000)  # Generate random integer literal
+  var value :int
+  discard parseInt(valueStr, value)
+  result = newIntNode(nkIntLit, value)
 #___________________
-proc random*(min,max :distinct SomeInteger) :PNode=
+proc random *(min,max :distinct SomeInteger) :PNode=
   case rand.rand(4)
   # of 1: newStrNode(nkStrLit, literal.string(min, max))  # TODO: Propert String nodes with different kinds
-  else: literal.integer_node(min, max)
+  else: literal.node_integer(min, max)
 
