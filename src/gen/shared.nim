@@ -31,9 +31,9 @@ const complexTypes * = [
   "tuple", "set", "ref", "ptr"
 ]
 
-# Constants for identifier generation
-const Letters         * = {'a'..'z', 'A'..'Z'}
-const Digits          * = {'0'..'9'}
-const identFirstChars * = shared.Letters + {'_'} # Use set union with char literal
-const identChars      * = shared.Letters + shared.Digits + {'_'}
+# Type Suffixes
+const floatSuffixes * = [
+  "f32", "F32", "f", "F",
+  "f64", "F64", "d", "D"
+]
 
