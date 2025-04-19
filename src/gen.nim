@@ -24,3 +24,4 @@ proc nim *(path: string = "generated.nim"): string =
 
   # Convert the AST to a string
   return renderTree(root.node, {renderNoComments, renderNoPragmas})
+
