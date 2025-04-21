@@ -1,9 +1,9 @@
 type TNodeKind* = enum
   # order is extremely important. ranges are used
-  nkNone,               # unknown node kind: indicates an error
+  # nkNone,               # unknown node kind: indicates an error
 
-  nkEmpty,              # the node is empty
-  nkIdent,              # node is an identifier
+  # nkEmpty,              # the node is empty
+  # nkIdent,              # node is an identifier
   nkSym,                # node is a symbol
   nkType,               # node is used for its typ field
 
