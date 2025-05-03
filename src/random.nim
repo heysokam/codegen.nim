@@ -19,6 +19,8 @@ func integer *[T: SomeInteger](S :Slice[T]) :T=
   {.cast(noSideEffect).}:
     return R.rand(state, S)
 
+func bool *() :bool= random.integer(1) == 1
+
 func float *[T: SomeFloat](H :T) :T=
   {.cast(noSideEffect).}:
     return R.rand(state, H)
