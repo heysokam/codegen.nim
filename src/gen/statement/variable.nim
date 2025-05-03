@@ -4,6 +4,7 @@
 # @deps compiler
 import "$nim"/compiler/[ ast, idents, lineinfos ]
 # @deps nim.gen
+import ../../random
 import ../ident
 import ../shared
 import ../expression
@@ -22,9 +23,9 @@ func runtime (
   result = newNodeI(kind, info)
   for id in 1..count:
     let identDefs = newNodeI(nkIdentDefs, info)
-    identDefs.add(ident.random(info))      # Child 0: Name (with export)
-    identDefs.add(ident.typ(info, int))    # Child 1: Type
-    identDefs.add(expression.random(info)) # Child 2: Value
+    identDefs.add(ident.random(info, public))  # Child 0: Name (with export)
+    identDefs.add(ident.typ(info, int))        # Child 1: Type
+    identDefs.add(expression.random(info))     # Child 2: Value
     result.add(identDefs)
 #___________________
 func comptime (
@@ -36,9 +37,9 @@ func comptime (
   result = newNodeI(nkConstSection, info)
   for id in 1..count:
     let constDef = newNodeI(nkConstDef, info)
-    constDef.add(ident.random(info))      # Child 0: Name (with export)
-    constDef.add(ident.typ(info, int))    # Child 1: Type
-    constDef.add(expression.random(info)) # Child 2: Value
+    constDef.add(ident.random(info, public))  # Child 0: Name (with export)
+    constDef.add(ident.typ(info, int))        # Child 1: Type
+    constDef.add(expression.random(info))     # Child 2: Value
     result.add constDef
 
 
@@ -47,11 +48,15 @@ func comptime (
 #_____________________________
 func random *(
     info    : TLineInfo;
-    public  : bool = false;
-    mutable : bool = true;
-    runtime : bool = true;
+    public  : bool;
+    mutable : bool;
+    runtime : bool;
   ) :PNode=
-  result =
-    if runtime : variable.runtime(info, public, mutable)
-    else       : variable.comptime(info, public)
+  if runtime : variable.runtime(info, public, mutable)
+  else       : variable.comptime(info, public)
+#___________________
+func random *(
+    info   : TLineInfo;
+    public : bool = random.bool();
+  ) :PNode= info.random(public, random.bool(), random.bool())
 

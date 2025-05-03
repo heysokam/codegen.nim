@@ -35,7 +35,7 @@ suite "Variable Generation Tests":
     let config  = newConfigRef()
     let absPath = AbsoluteFile("test.nim")
     for id in 1..100:
-      let varNode = variable.random(newLineInfo(config, absPath, id, 0), mutable=true, runtime=true)
+      let varNode = variable.random(newLineInfo(config, absPath, id, 0), mutable=true, runtime=true, public=false)
       declarations.add("  " & varNode.renderTree({renderNoComments, renderNoPragmas}).replace("\n", "\n  "))  # Add indentation for proper formatting
     check compileTest(declarations)
 
@@ -44,7 +44,7 @@ suite "Variable Generation Tests":
     let config  = newConfigRef()
     let absPath = AbsoluteFile("test.nim")
     for id in 1..100:
-      let varNode = variable.random(newLineInfo(config, absPath, id, 0), mutable=false, runtime=true)
+      let varNode = variable.random(newLineInfo(config, absPath, id, 0), mutable=false, runtime=true, public=false)
       declarations.add("  " & varNode.renderTree({renderNoComments, renderNoPragmas}).replace("\n", "\n  "))  # Add indentation for proper formatting
     check compileTest(declarations)
 
@@ -53,7 +53,7 @@ suite "Variable Generation Tests":
     let config  = newConfigRef()
     let absPath = AbsoluteFile("test.nim")
     for id in 1..100:
-      let varNode = variable.random(newLineInfo(config, absPath, id, 0), mutable=false, runtime=false)
+      let varNode = variable.random(newLineInfo(config, absPath, id, 0), mutable=false, runtime=false, public=false)
       declarations.add("  " & varNode.renderTree({renderNoComments, renderNoPragmas}).replace("\n", "\n  "))  # Add indentation for proper formatting
     check compileTest(declarations)
 
