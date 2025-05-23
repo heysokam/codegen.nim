@@ -17,6 +17,7 @@ func runtime (
     public  : bool     = false;
     mutable : bool     = true;
     count   : Positive = 1;
+    T       : string   = $int;
   ) :PNode=
   # Create let/var declaration node
   let kind = if mutable: nkVarSection else: nkLetSection
@@ -24,7 +25,7 @@ func runtime (
   for id in 1..count:
     let identDefs = newNodeI(nkIdentDefs, info)
     identDefs.add(ident.random(info, public))  # Child 0: Name (with export)
-    identDefs.add(ident.typ(info, int))        # Child 1: Type
+    identDefs.add(ident.typ(info, T))          # Child 1: Type
     identDefs.add(expression.random(info))     # Child 2: Value
     result.add(identDefs)
 #___________________
@@ -32,13 +33,14 @@ func comptime (
     info   : TLineInfo;
     public : bool     = false;
     count  : Positive = 1;
+    T      : string   = $int;
   ) :PNode=
   # Create const declaration node
   result = newNodeI(nkConstSection, info)
   for id in 1..count:
     let constDef = newNodeI(nkConstDef, info)
     constDef.add(ident.random(info, public))  # Child 0: Name (with export)
-    constDef.add(ident.typ(info, int))        # Child 1: Type
+    constDef.add(ident.typ(info, T))          # Child 1: Type
     constDef.add(expression.random(info))     # Child 2: Value
     result.add constDef
 

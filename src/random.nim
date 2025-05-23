@@ -1,8 +1,11 @@
 #:______________________________________________________________________
 #  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
 #:______________________________________________________________________
+# @deps std
 from std/random as R import nil
 from std/hashes import hash
+# @deps nim.gen
+import ./typetools
 
 const seed {.strDefine.}= CompileDate & CompileTime
 var state = R.initRand(hash(seed))
@@ -32,4 +35,7 @@ func float *[T: SomeFloat](S :Slice[T]) :T=
 func sample *[T](container :T) :auto=
   {.cast(noSideEffect).}:
     return R.sample(state, container)
+
+func integer_lit *() :string=
+  return random.sample(typetools.Integers_all)
 

@@ -48,11 +48,11 @@ func name *(length :Positive= 8, underscore :bool= false) :string=
 #_______________________________________
 # @section Identifier Generation: Node
 #_____________________________
-func typ *(info :TLineInfo; T :typedesc) :PNode=
+func typ *(info :TLineInfo; T :string) :PNode=
   ## Generate a random type identifier node
   # FIX: Make it random
   {.cast(noSideEffect).}: # Access to gIdentCache is safe
-    let typeIdent = gIdentCache.getIdent($T)
+    let typeIdent = gIdentCache.getIdent(T)
   result = newIdentNode(typeIdent, info)
 #___________________
 func random *(
