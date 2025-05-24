@@ -25,7 +25,7 @@ proc run=
   let code = case choice # FIX: Pass allowBlocks option from cli
   of "variable" : gen.variable()
   of "proc"     : gen.procs()
-  else:         : gen.nim()
+  else          : gen.nim()
   if not os.dirExists(dir): os.createDir dir
   file.writeFile(code)
   echo code
