@@ -11,14 +11,15 @@ import ../../typetools
 #_______________________________________
 # @section Node Generation: Entry Point
 #_____________________________
-func integer *(T :string) :PNode=
+func integer *(T :string) :PNode=  newIntNode(T.toNodeKind(), R.integer(int.low..int.high))
   ## @descr Generates a random integer literal node of the given type
-  let kind = T.toNodeKind()
-  if   T.isInteger_signed()   : return newIntNode(kind, R.integer(int.low..int.high))
-  elif T.isInteger_unsigned() : return newIntNode(kind, R.integer(uint.low..uint.high).BiggestInt)
+#___________________
+func float *(T :string) :PNode=  newFloatNode(T.toNodeKind(), R.float(system.float.low..system.float.high))
+  ## @descr Generates a random integer literal node of the given type
 #___________________
 func random *() :PNode=
   case R.integer(4)
-  # of 1: newStrNode(nkStrLit, literal.string(min, max))  # TODO: Propert String nodes with different kinds
+  of 0: literal.float(R.float_lit())
+  # of 1: newStrNode(nkStrLit, literal.string(min, max))  # TODO: Proper String nodes with different kinds
   else: literal.integer(R.integer_lit())
 

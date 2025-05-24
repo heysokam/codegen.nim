@@ -39,3 +39,12 @@ func sample *[T](container :T) :auto=
 func integer_lit *() :string=
   return random.sample(typetools.Integers_all)
 
+func float_lit *() :string=
+  return random.sample(typetools.Floats_all)
+
+func typename *() :string=
+  case random.integer(1):
+  of 0: return random.integer_lit()
+  of 1: return random.float_lit()
+  else:discard # unreachable
+
