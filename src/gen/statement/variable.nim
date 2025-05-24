@@ -16,8 +16,8 @@ func runtime (
     info    : TLineInfo;
     public  : bool     = false;
     mutable : bool     = true;
-    count   : Positive = 1;
     T       : string   = $int;
+    count   : Positive = 1;
   ) :PNode=
   # Create let/var declaration node
   let kind = if mutable: nkVarSection else: nkLetSection
@@ -26,14 +26,14 @@ func runtime (
     let identDefs = newNodeI(nkIdentDefs, info)
     identDefs.add(ident.random(info, public))  # Child 0: Name (with export)
     identDefs.add(ident.typ(info, T))          # Child 1: Type
-    identDefs.add(expression.random(info))     # Child 2: Value
+    identDefs.add(expression.random(info, T))  # Child 2: Value
     result.add(identDefs)
 #___________________
 func comptime (
     info   : TLineInfo;
     public : bool     = false;
-    count  : Positive = 1;
     T      : string   = $int;
+    count  : Positive = 1;
   ) :PNode=
   # Create const declaration node
   result = newNodeI(nkConstSection, info)
@@ -41,7 +41,7 @@ func comptime (
     let constDef = newNodeI(nkConstDef, info)
     constDef.add(ident.random(info, public))  # Child 0: Name (with export)
     constDef.add(ident.typ(info, T))          # Child 1: Type
-    constDef.add(expression.random(info))     # Child 2: Value
+    constDef.add(expression.random(info, T))  # Child 2: Value
     result.add constDef
 
 
@@ -53,12 +53,13 @@ func random *(
     public  : bool;
     mutable : bool;
     runtime : bool;
+    T       : string;
   ) :PNode=
-  if runtime : variable.runtime(info, public, mutable)
-  else       : variable.comptime(info, public)
+  if runtime : variable.runtime(info, public, mutable, T)
+  else       : variable.comptime(info, public, T)
 #___________________
 func random *(
     info   : TLineInfo;
     public : bool = random.bool();
-  ) :PNode= info.random(public, random.bool(), random.bool())
+  ) :PNode= info.random(public, random.bool(), random.bool(), random.typename())
 
