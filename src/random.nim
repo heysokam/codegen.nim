@@ -10,41 +10,62 @@ import ./typetools
 const seed {.strDefine.}= CompileDate & CompileTime
 var state = R.initRand(hash(seed))
 
-func integer *() :SomeInteger=
-  {.cast(noSideEffect).}:
-    return R.rand(state, int.high)
-
-func integer *[T: SomeInteger](H :T) :T=
-  {.cast(noSideEffect).}:
-    return R.rand(state, H)
-
-func integer *[T: SomeInteger](S :Slice[T]) :T=
-  {.cast(noSideEffect).}:
-    return R.rand(state, S)
-
-func bool *() :bool= random.integer(1) == 1
-
-func float *[T: SomeFloat](H :T) :T=
-  {.cast(noSideEffect).}:
-    return R.rand(state, H)
-
-func float *[T: SomeFloat](S :Slice[T]) :T=
-  {.cast(noSideEffect).}:
-    return R.rand(state, S)
-
+#_______________________________________
+# @section Containers
+#_____________________________
 func sample *[T](container :T) :auto=
   {.cast(noSideEffect).}:
     return R.sample(state, container)
 
+
+#_______________________________________
+# @section Integers
+#_____________________________
+func integer *() :SomeInteger=
+  {.cast(noSideEffect).}:
+    return R.rand(state, int.high)
+#___________________
+func integer *[T: SomeInteger](H :T) :T=
+  {.cast(noSideEffect).}:
+    return R.rand(state, H)
+#___________________
+func integer *[T: SomeInteger](S :Slice[T]) :T=
+  {.cast(noSideEffect).}:
+    return R.rand(state, S)
+#___________________
 func integer_lit *() :string=
   return random.sample(typetools.Integers_all)
 
+
+
+#_______________________________________
+# @section Booleans
+#_____________________________
+func bool *() :bool= random.integer(1) == 1
+
+
+#_______________________________________
+# @section Floats
+#_____________________________
+func float *[T: SomeFloat](H :T) :T=
+  {.cast(noSideEffect).}:
+    return R.rand(state, H)
+#___________________
+func float *[T: SomeFloat](S :Slice[T]) :T=
+  {.cast(noSideEffect).}:
+    return R.rand(state, S)
+#___________________
 func float_lit *() :string=
   return random.sample(typetools.Floats_all)
 
+
+#_______________________________________
+# @section General Typedef
+#_____________________________
 func typename *() :string=
-  case random.integer(1):
-  of 0: return random.integer_lit()
+  case random.integer(3):
   of 1: return random.float_lit()
-  else:discard # unreachable
+  # of 2: return $bool
+  # of 3: return $string
+  else: return random.integer_lit()
 
