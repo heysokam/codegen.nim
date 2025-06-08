@@ -6,7 +6,7 @@ import "$nim"/compiler/[ ast, lineinfos ]
 # @deps nim.gen
 import ./expression/literal
 import ../typetools
-import ../random as R
+
 
 func random *(
     info : TLineInfo;

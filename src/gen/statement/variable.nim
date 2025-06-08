@@ -2,11 +2,10 @@
 #  nim.gen  |  Copyright (C) Ivan Mar (sOkam!)  |  GNU GPLv3 or later  :
 #:______________________________________________________________________
 # @deps compiler
-import "$nim"/compiler/[ ast, idents, lineinfos ]
+import "$nim"/compiler/[ ast, lineinfos ]
 # @deps nim.gen
 import ../../random
 import ../ident
-import ../shared
 import ../expression
 
 #_______________________________________

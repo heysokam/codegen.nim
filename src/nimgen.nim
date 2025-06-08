@@ -3,9 +3,7 @@
 #:______________________________________________________________________
 # @deps std
 from std/os import nil
-from std/strutils import toHex
 # @deps nim.gen
-import ./random
 import ./gen
 
 
@@ -18,7 +16,7 @@ proc run=
   let choice = args[0]
   let file   = args[1]
   let dir    = os.splitFile(file).dir
-  let seed   = if args.len > 2: args[2] else: random.integer().toHex()
+  # let seed   = if args.len > 2: args[2] else: random.integer().toHex()
   # Validate Arguments
   doAssert choice in ["all", "variable", "proc"]
   doAssert not os.fileExists(file)
