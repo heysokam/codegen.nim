@@ -7,8 +7,22 @@ from std/hashes import hash
 # @deps nim.gen
 import ./typetools
 
+
+#_______________________________________
+# @section Random Seed Management
+#_____________________________
 const seed {.strDefine.}= CompileDate & CompileTime
-var state = R.initRand(hash(seed))
+#___________________
+func init_with (seed_string :string= seed) :R.Rand;
+var state = random.init_with(random.seed)
+func init_with (seed_string :string= seed) :R.Rand=
+  {.cast(noSideEffect).}:
+    return R.initRand(hash(seed_string))
+#___________________
+func init *(seed_string :string= seed) :void=
+  {.cast(noSideEffect).}:
+    random.state = random.init_with(seed_string)
+
 
 #_______________________________________
 # @section Containers
